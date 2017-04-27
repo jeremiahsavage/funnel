@@ -2,113 +2,113 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_examples/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_examples/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_gce/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_gce/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_gce_start/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_gce_start/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_server/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_server/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_task/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_task/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_task_cancel/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_task_cancel/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_task_create/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_task_create/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_task_get/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_task_get/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_task_list/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_task_list/</loc>
   </url>
   
   <url>
-    <loc>/docs/cmd/funnel_worker/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_worker/</loc>
   </url>
   
   <url>
-    <loc>/docs/backends/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/</loc>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/docs/config/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/config/</loc>
   </url>
   
   <url>
-    <loc>/docs/design/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/design/</loc>
   </url>
   
   <url>
-    <loc>/docs/development/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/development/</loc>
   </url>
   
   <url>
-    <loc>/docs/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/docs/backends/google-cloud/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/google-cloud/</loc>
   </url>
   
   <url>
-    <loc>/docs/backends/htcondor/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/htcondor/</loc>
   </url>
   
   <url>
-    <loc>/install/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/install/</loc>
   </url>
   
   <url>
-    <loc>/docs/backends/local/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/local/</loc>
   </url>
   
   <url>
-    <loc>/docs/backends/manual/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/manual/</loc>
   </url>
   
   <url>
-    <loc>/docs/backends/openstack/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/</loc>
   </url>
   
   <url>
-    <loc>/docs/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/</loc>
   </url>
   
   <url>
-    <loc>/docs/quickstart/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/quickstart/</loc>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/tags/</loc>
     <priority>0</priority>
   </url>
   
