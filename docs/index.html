@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.20.3" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Overview &middot; Funnel</title>
+  
+
+  
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/monokai-sublime.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/funnel.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  <script src="js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body>
+
+  <div class="global-header">
+    <div class="global-header-container">
+      <div class="global-header-home">
+        <a href="/"><h1>Funnel</h1></a>
+      </div>
+      <ul class="global-header-nav">
+          <li><a href="/install/">Install</a></li>
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="https://github.com/ohsu-comp-bio/funnel">GitHub</a></li>
+        </ul>
+      <div class="global-header-ohsucb">
+        <a href="https://www.ohsu.edu/xd/education/schools/school-of-medicine/departments/computational-biology/"><h2>OHSU Comp. Bio.</h2></a>
+      </div>
+    </div>
+  </div>
+
+
+<div class="content section group">
+
+  <div class="sidebar col span_3_of_12">
+    <ul class="sidebar-nav">
+      
+      
+        
+        <li><a
+          href="/docs/"
+          class="sidebar-nav-item  active"
+          >Overview</a></li>
+          
+        
+        <li><a
+          href="/install/"
+          class="sidebar-nav-item "
+          >Install</a></li>
+          
+        
+        <li><a
+          href="/docs/quickstart/"
+          class="sidebar-nav-item "
+          >Quickstart</a></li>
+          
+        
+        <li><a
+          href="/docs/config/"
+          class="sidebar-nav-item "
+          >Config</a></li>
+          
+        
+        <li><a
+          href="/docs/backends/"
+          class="sidebar-nav-item "
+          >Backends</a></li>
+          
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="/docs/backends/local/"
+                   class="sidebar-nav-item "
+                >Local</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="/docs/backends/manual/"
+                   class="sidebar-nav-item "
+                >Manual</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="/docs/backends/google-cloud/"
+                   class="sidebar-nav-item "
+                >Google Cloud</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="/docs/backends/htcondor/"
+                   class="sidebar-nav-item "
+                >HTCondor</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="/docs/backends/openstack/"
+                   class="sidebar-nav-item "
+                >OpenStack</a></li>
+            </ul>
+          </li>
+          
+          
+        
+        <li><a
+          href="/docs/development/"
+          class="sidebar-nav-item "
+          >Development</a></li>
+          
+        
+        <li><a
+          href="/docs/design/"
+          class="sidebar-nav-item "
+          >Design</a></li>
+          
+        
+        <li><a
+          href="https://godoc.org/github.com/ohsu-comp-bio/funnel"
+          class="sidebar-nav-item "
+          >Reference</a></li>
+          
+        
+        <li><a
+          href="https://github.com/ohsu-comp-bio/funnel"
+          class="sidebar-nav-item "
+          >GitHub</a></li>
+          
+        
+        <li><a
+          href="https://gitter.im/ohsu-comp-bio/funnel"
+          class="sidebar-nav-item "
+          >Chat</a></li>
+          
+        
+      
+    </ul>
+  </div>
+
+  <div class="main col span_8_of_12">
+    
+
+<h1 id="overview">Overview</h1>
+
+<p>Funnel aims to make batch processing tasks easier to manage by providing a simple
+toolkit that supports a wide variety of cluster types. Our goal is to enable you
+to spend less time worrying about task management and more time processing data.</p>
+
+<h2 id="background">Background</h2>
+
+<h3 id="how-does-funnel-work">How Does Funnel Work?</h3>
+
+<p>Funnel is a combination of a server and worker processes. First, you define a task.
+A task describes input and output files, (Docker) containers and commands, resource
+requirements, and some other metadata. You send that task to the Funnel server,
+which puts it in the queue until a worker is available. When an appropriate Funnel
+worker is available, it downloads the inputs, executes the commands in (Docker)
+containers, and uploads the outputs.</p>
+
+<p>Funnel also comes with some tools related to managing workers and tasks. There&rsquo;s
+a dashboard, a scheduler, an autoscaler, some rudimentary workflow tools, and more.</p>
+
+<h3 id="why-does-funnel-exist">Why Does Funnel Exist?</h3>
+
+<p>Here at OHSU Computational Biology, a typical project involves coordinating dozens
+of tasks across hundreds of CPUs in a cluster of machines in order to process hundreds
+of files. That&rsquo;s standard fare for most computational groups these days, and for some
+groups it&rsquo;s &ldquo;thousands&rdquo; or &ldquo;millions&rdquo; instead of &ldquo;hundreds&rdquo;.</p>
+
+<p>Because we&rsquo;re part of a worldwide scientific community, it&rsquo;s important that we&rsquo;re able
+to easily share our work. If we create a variant calling pipeline with 50 steps,
+we need people outside OHSU to run that pipeline easily and efficiently.</p>
+
+<p>There&rsquo;s a long list of projects making great strides in the tools we use to tackle
+this type of work, but they have a common problem. Every group of users has grown
+a different set of tools for managing and interacting with their cluster. Some use
+HTCondor and NFS. Some use Open Grid Engine and Lustre. Some prefer cloud providers,
+but which one? Google? Amazon? Each cluster comes with a different interface to learn
+(and a new set of problems to debug too).</p>
+
+<p>Tool authors usually end up writing (and hopefully maintaining) a set of
+compute and storage plugins for each type of cluster. Many authors don&rsquo;t have
+time for that, and their tools end up being limited to their environment.
+Some tools were never meant to be shared, instead they were originally just
+a prototype or a set of helper scripts for working with AWS instances.</p>
+
+<p>The <a href="https://github.com/ga4gh/task-execution-schemas">GA4GH Task Execution Schemas</a> (TES) group aims to ease problems by
+designing a simple API for data processing tasks that can be easily layered on top of,
+or easily plugged into, most existing cluster. Funnel started as the first
+implementation of the TES API.</p>
+
+<p>Funnel aims to ease these problems. Our goal is to enable easy management of tasks
+and tools that need to work across many types of clusters.</p>
+
+  </div>
+
+</div>
+</body>
+</html>

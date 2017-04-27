@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_examples/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_gce/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_gce_start/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_server/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_task/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_task_cancel/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_task_create/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_task_get/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_task_list/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/cmd/funnel_worker/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/backends/</loc>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/docs/config/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/design/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/development/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/docs/backends/google-cloud/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/backends/htcondor/</loc>
+  </url>
+  
+  <url>
+    <loc>/install/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/backends/local/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/backends/manual/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/backends/openstack/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>/docs/quickstart/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
