@@ -74,8 +74,8 @@
     
       <div class="section group">
         <div class="col span_4_of_12">
-          <h1>Start Funnel.</h1>
-          <p>Start simple.</p>
+          <h1>Start Funnel</h1>
+          <p></p>
         </div>
         <div class="col span_8_of_12">
           <pre><code class="language-shell">$ funnel server</code></pre>
@@ -84,79 +84,72 @@
     
       <div class="section group">
         <div class="col span_4_of_12">
-          <h1>Run a task.</h1>
+          <h1>Run a task</h1>
           <p>Returns a task ID.</p>
         </div>
         <div class="col span_8_of_12">
-          <pre><code class="language-shell">$ funnel run &#39;md5sum&#39; --stdin ~/input.txt --stdout ~/input-md5.txt</code></pre>
+          <pre><code class="language-shell">$ funnel run &#39;md5sum $src&#39; -I ubuntu --in src=~/src.txt
+b41pkv2rl6qjf441avd0
+</code></pre>
         </div>
       </div>
     
       <div class="section group">
         <div class="col span_4_of_12">
-          <h1>Get the task.</h1>
+          <h1>Get the task</h1>
           <p>Returns state, logs, and more.</p>
         </div>
         <div class="col span_8_of_12">
-          <pre><code class="language-shell">$ funnel tasks get [task-id]</code></pre>
+          <pre><code class="language-shell">$ funnel task get b41pkv2rl6qjf441avd0</code></pre>
         </div>
       </div>
     
       <div class="section group">
         <div class="col span_4_of_12">
-          <h1>Run lots of tasks.</h1>
-          <p>That&#39;s what clusters are for.</p>
+          <h1>List all the tasks</h1>
+          <p></p>
         </div>
         <div class="col span_8_of_12">
-          <pre><code class="language-shell">$ funnel run &#39;md5sum&#39;</code></pre>
+          <pre><code class="language-shell">$ funnel task list</code></pre>
         </div>
       </div>
     
       <div class="section group">
         <div class="col span_4_of_12">
-          <h1>List all the tasks.</h1>
-          <p>TODO</p>
+          <h1>View the terminal dashboard</h1>
+          <p></p>
         </div>
         <div class="col span_8_of_12">
-          <pre><code class="language-shell">$ funnel tasks list</code></pre>
+          <pre><code class="language-shell">$ funnel dashboard</code></pre>
         </div>
       </div>
     
       <div class="section group">
         <div class="col span_4_of_12">
-          <h1>Move to the cloud.</h1>
-          <p>Google, Amazon, Microsoft, HPC, and more.
-</p>
+          <h1>Use a remove server</h1>
+          <p></p>
         </div>
         <div class="col span_8_of_12">
-          <pre><code class="language-shell">$ gcloud auth login
-$ funnel deploy gce
-$ funnel run &#39;md5sum&#39;                \
-    --stdin gs://pub/input.txt       \
-    --stdout gs://my-bkt/output.txt
+          <pre><code class="language-shell">$ funnel run --server http://funnel.example.com ...</code></pre>
+        </div>
+      </div>
+    
+      <div class="section group">
+        <div class="col span_4_of_12">
+          <h1>Example tasks</h1>
+          <p></p>
+        </div>
+        <div class="col span_8_of_12">
+          <pre><code class="language-shell">$ funnel example list
+$ funnel example hello-world
 </code></pre>
         </div>
       </div>
     
       <div class="section group">
         <div class="col span_4_of_12">
-          <h1>Hand-craft a task.</h1>
-          <p>Get into the details with JSON or YAML.</p>
-        </div>
-        <div class="col span_8_of_12">
-          <pre><code class="language-shell">$ funnel task create --yaml &lt;&lt;TASK
-  name: My Task
-  description: Taking Funnel for a drive.
-  inputs:
-TASK
-</code></pre>
-        </div>
-      </div>
-    
-      <div class="section group">
-        <div class="col span_4_of_12">
-          <h1>Get help.</h1>
-          <p>The Funnel CLI is extensive.</p>
+          <h1>Get help</h1>
+          <p></p>
         </div>
         <div class="col span_8_of_12">
           <pre><code class="language-shell">$ funnel help</code></pre>
@@ -165,18 +158,8 @@ TASK
     
       <div class="section group">
         <div class="col span_4_of_12">
-          <h1>File a bug.</h1>
-          <p>It happens.</p>
-        </div>
-        <div class="col span_8_of_12">
-          <pre><code class="language-shell">$ funnel bug</code></pre>
-        </div>
-      </div>
-    
-      <div class="section group">
-        <div class="col span_4_of_12">
-          <h1>Get the code.</h1>
-          <p>Go get it.</p>
+          <h1>Get the code</h1>
+          <p></p>
         </div>
         <div class="col span_8_of_12">
           <pre><code class="language-shell">$ go get github.com/ohsu-comp-bio/funnel</code></pre>
@@ -184,7 +167,7 @@ TASK
       </div>
     
 
-    <p style="text-align: center"><strong>The beat goes on.</strong> Check out the guides for more.</p>
+    
   </div>
 
   <hr>
@@ -229,14 +212,13 @@ TASK
         <p>Funnel is <a href="https://opensource.org/licenses/MIT">MIT licensed</a>.<br>Do as you please.</p>
       </div>
 
-      <div class="col span_4_of_12">
-        <h3>Related projects.</h3>
-        <p>Need something here.</p>
-      </div>
+      
 
     </div>
-  </div>
-</div>
+
+    <div class="homepage-footer"></div>
+
+</div></div>
 
 </body>
 </html>
