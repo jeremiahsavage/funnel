@@ -192,7 +192,7 @@ HostName: localhost
 # Logging levels: debug, info, error
 LogLevel: debug
 # Write logs to this path. If empty, logs are written to stderr.
-LogPath: &quot;&quot;
+LogPath: ""
 # Limit the size of task executor logs (stdout/err), in bytes.
 MaxExecutorLogSize: 10000 # 10 KB
 # How often to run a scheduler iteration.
@@ -206,31 +206,30 @@ WorkerPingTimeout: 60000000000 # 1 minute
 # How long to wait for a worker to start, before marking the worker dead.
 # In nanoseconds.
 WorkerInitTimeout: 300000000000 # 5 minutes
-# Include a &quot;Cache-Control: no-store&quot; HTTP header in Get/List responses
+# Include a "Cache-Control: no-store" HTTP header in Get/List responses
 # to prevent caching by intermediary services.
 DisableHTTPCache: true
 
 # File storage systems.
-# This is a list of structs (TODO that's confusing, restructure this config)
 Storage:
   # Local file system.
-  - Local:
-      # Whitelist of local directory paths which Funnel is allowed to access.
-      AllowedDirs:
-        - ./funnel-work-dir/storage
-    #S3:
-    #  Endpoint:
-    #  Key:
-    #  Secret:
+  Local:
+    # Whitelist of local directory paths which Funnel is allowed to access.
+    AllowedDirs:
+      - ./funnel-work-dir/storage
 
-     # Google Cloud Storage
-     #GS:
-      # Path to account credentials file.
-      # Optional. If possible, credentials will be automatically discovered
-      # from the environment.
-     # AccountFile:
-      # Automatically discover credentials from the environment.
-     # FromEnv: true
+  # S3:
+  #   - Endpoint:
+  #     Key:
+  #     Secret:
+
+  # Google Cloud Storage
+  # GS:
+  #   - # Path to account credentials file.
+  #     # Optional. If possible, this will be automatically discovered.
+  #     AccountFile:
+  #     # Automatically discover credentials from the environment.
+  #     FromEnv: true
 
 # The name of the active scheduler backend
 # Available backends: local, condor, gce, openstack
@@ -242,13 +241,13 @@ Backends:
   GCE:
     # Path to account credentials file.
     # If possible, this will be automatically discovered.
-    AccountFile: &quot;&quot;
+    AccountFile: ""
     # Google Cloud project ID.
     # If possible, this will be automatically discovered.
-    Project: &quot;&quot;
+    Project: ""
     # Google Cloud zone.
     # If possible, this will be automatically discovered.
-    Zone: &quot;&quot;
+    Zone: ""
     Weights:
       # Prefer workers that start up quickly.
       # Workers that are already online have instant startup time.
@@ -259,7 +258,7 @@ Backends:
 
 Worker:
   # If empty, a worker ID will be automatically generated.
-  ID: &quot;&quot;
+  ID: ""
   # RPC address of the Funnel server
   ServerAddress: localhost:9090
   # Files created during processing will be written in this directory.
@@ -296,17 +295,17 @@ Worker:
   # Logging levels: debug, info, error
   LogLevel: debug
   # Write logs to this path. If empty, logs are written to stderr.
-  LogPath: &quot;&quot;
+  LogPath: ""
   # Override available resources.
   Resources:
     # CPUs available.
     # Cpus: 0
 
     # RAM available, in GB.
-    # Ram: 0.0
+    # RamGb: 0.0
 
     # Disk space available, in GB.
-    Disk: 100.0
+    DiskGb: 100.0
   # For low-level tuning.
   # RPC timeout for update/sync call.
   # In nanoseconds.
@@ -319,6 +318,7 @@ Worker:
   # How often to send task log updates to the Funnel server.
   # In nanoseconds.
   LogUpdateRate: 5000000000 # 5 seconds
+
 </code></pre>
 
   </div>
