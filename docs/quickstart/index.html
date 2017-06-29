@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.20.3" />
+  <meta name="generator" content="Hugo 0.22-DEV" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -123,6 +123,33 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/"
+                   class="sidebar-nav-item "
+                >Open Grid Engine</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/"
+                   class="sidebar-nav-item "
+                >PBS/Torque</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/"
+                   class="sidebar-nav-item "
+                >SLURM</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
                 <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/"
                    class="sidebar-nav-item "
                 >OpenStack</a></li>
@@ -174,11 +201,11 @@
 
 <pre><code class="language-yaml"># Describes the storage that Funnel has access to.
 Storage:
-- Local:
+  Local:
     # You need to explicitly give Funnel access to local directories.
     AllowedDirs:
-    - /home/buchanae/funnel-files
-    - /tmp
+      - /home/buchanae/funnel-files
+      - /tmp
 </code></pre>
 
   </div>

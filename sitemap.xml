@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://ohsu-comp-bio.github.io/funnel/</loc>
@@ -96,6 +97,10 @@
   </url>
   
   <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/</loc>
+  </url>
+  
+  <url>
     <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/</loc>
   </url>
   
@@ -104,7 +109,15 @@
   </url>
   
   <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/</loc>
+  </url>
+  
+  <url>
     <loc>https://ohsu-comp-bio.github.io/funnel/docs/quickstart/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/</loc>
   </url>
   
   <url>

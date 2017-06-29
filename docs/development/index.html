@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.20.3" />
+  <meta name="generator" content="Hugo 0.22-DEV" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -123,6 +123,33 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/"
+                   class="sidebar-nav-item "
+                >Open Grid Engine</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/"
+                   class="sidebar-nav-item "
+                >PBS/Torque</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/"
+                   class="sidebar-nav-item "
+                >SLURM</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
                 <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/"
                    class="sidebar-nav-item "
                 >OpenStack</a></li>
@@ -180,7 +207,6 @@
 <li><a href="https://angularjs.org/">Angular</a> and <a href="http://sass-lang.com/">SASS</a> for the web dashboard.</li>
 <li><a href="https://www.gnu.org/software/make/">GNU Make</a> for development tasks.</li>
 <li><a href="https://docker.io">Docker</a> for executing task containers.</li>
-<li><a href="https://www.python.org/">Python</a> for end-to-end conformance tests.</li>
 <li><a href="https://github.com/dpw/vendetta">vendetta</a> for Go dependency vendoring.</li>
 <li>and more.</li>
 </ul>
@@ -221,13 +247,18 @@
 </tr>
 
 <tr>
-<td><code>make go-test</code></td>
-<td>Run Go unit/integration tests.</td>
+<td><code>make test-short</code></td>
+<td>Run only fast-running tests.</td>
 </tr>
 
 <tr>
-<td><code>make go-test-short</code></td>
-<td>Run only fast-running Go tests.</td>
+<td><code>make test-verbose</code></td>
+<td>Run tests in verbose mode.</td>
+</tr>
+
+<tr>
+<td><code>make test-backends</code></td>
+<td>Run end-to-end tests against dockerized HPC scheduler backends.</td>
 </tr>
 
 <tr>
@@ -364,7 +395,7 @@
 </tr>
 
 <tr>
-<td><code>web</code></td>
+<td><code>webdash</code></td>
 <td>Javascript, CSS, HTML for web dashboard.</td>
 </tr>
 </tbody>
@@ -382,14 +413,6 @@ Run the worker tests with &ldquo;Cancel&rdquo; in the name: <code>go test ./work
 
 <p>The <a href="https://github.com/stretchr/testify">testify</a> and <a href="https://github.com/vektra/mockery">mockery</a> tools are used to generate and use
 mock interfaces in test code, for example, to mock the Google Cloud APIs.</p>
-
-<h2 id="python-tests">Python Tests</h2>
-
-<p>There are end-to-end tests written in python.
-These are heavyweight integration tests which start Funnel servers
-and workers and submit tasks.</p>
-
-<p>These are run with <code>make test</code>.</p>
 
 <h2 id="vendoring">Vendoring</h2>
 

@@ -129,7 +129,8 @@ funnel worker  Options  -c, --config string Config File --hostname string Host n
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/</guid>
-      <description> Docs index </description>
+      <description> Compute Backends Cloud  Google Compute Engine  HPC  HTCondor SLURM Grid Engine PBS/Torque  Storage Backends Files can be downloaded and uploaded from:
+ Local/shared filesystem Google Storage S3  </description>
     </item>
     
     <item>
@@ -160,8 +161,8 @@ $ funnel --config funnel.config.yaml [server | worker | ... ]  Below is a YAML c
       
       <guid>https://ohsu-comp-bio.github.io/funnel/docs/development/</guid>
       <description>Development Funnel uses:
- Go for the majority of the code. Task Execution Schemas for task APIs. Protobuf + gRPC for RPC communication. gRPC Gateway for HTTP communication. Angular and SASS for the web dashboard. GNU Make for development tasks. Docker for executing task containers. Python for end-to-end conformance tests. vendetta for Go dependency vendoring. and more.  Prerequisites These are the tools you&amp;rsquo;ll need to install:
- Go 1.</description>
+ Go for the majority of the code. Task Execution Schemas for task APIs. Protobuf + gRPC for RPC communication. gRPC Gateway for HTTP communication. Angular and SASS for the web dashboard. GNU Make for development tasks. Docker for executing task containers. vendetta for Go dependency vendoring. and more.  Prerequisites These are the tools you&amp;rsquo;ll need to install:
+ Go 1.8 Make Docker (tested with v1.</description>
     </item>
     
     <item>
@@ -184,7 +185,7 @@ Create a Funnel VM Image A Funnel image provides the basic dependencies and conf
 Workers will start, execute a single task, then exit immediately so that they don&amp;rsquo;t unfairly hold slots in the HTCondor queue. Funnel accesses HTCondor by making calls to condor_submit.
 The Funnel server process needs to run on the same machine as the HTCondor master.
 Configure Funnel to use HTCondor by including the following config:
-Scheduler: condor  To start Funnel with a config file:</description>
+Scheduler: htcondor Backends: HTCondor: |universe = vanilla getenv = True executable = {{.</description>
     </item>
     
     <item>
@@ -206,6 +207,18 @@ Scheduler: condor  To start Funnel with a config file:</description>
     </item>
     
     <item>
+      <title>Open Grid Engine</title>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/</guid>
+      <description>Open Grid Engine (SGE) Funnel can be configured to start workers via Open Grid Engine.
+Workers will start, execute a single task, then exit immediately so that they don&amp;rsquo;t unfairly hold slots in the SGE queue. Funnel accesses SGE by making calls to qsub.
+The Funnel server process needs to run on the same machine as the SGE master.
+Configure Funnel to use SGE by including the following config:</description>
+    </item>
+    
+    <item>
       <title>OpenStack</title>
       <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -215,13 +228,39 @@ Scheduler: condor  To start Funnel with a config file:</description>
     </item>
     
     <item>
+      <title>PBS/Torque</title>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/</guid>
+      <description>PBS/Torque Funnel can be configured to start workers via PBS/Torque.
+Workers will start, execute a single task, then exit immediately so that they don&amp;rsquo;t unfairly hold slots in the PBS queue. Funnel accesses PBS by making calls to qsub.
+The Funnel server process needs to run on the same machine as the PBS master.
+Configure Funnel to use PBS by including the following config:
+Scheduler: pbs Backends: PBS: |#!/bin/bash #PBS -N {{.</description>
+    </item>
+    
+    <item>
       <title>Quickstart</title>
       <link>https://ohsu-comp-bio.github.io/funnel/docs/quickstart/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://ohsu-comp-bio.github.io/funnel/docs/quickstart/</guid>
       <description> TODO or maybe Getting Started Here&amp;rsquo;s a simple funnel.config.yml file for getting started:
-# Describes the storage that Funnel has access to. Storage: - Local: # You need to explicitly give Funnel access to local directories. AllowedDirs: - /home/buchanae/funnel-files - /tmp  </description>
+# Describes the storage that Funnel has access to. Storage: Local: # You need to explicitly give Funnel access to local directories. AllowedDirs: - /home/buchanae/funnel-files - /tmp  </description>
+    </item>
+    
+    <item>
+      <title>SLURM</title>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/</guid>
+      <description>SLURM Funnel can be configured to start workers via SLURM.
+Workers will start, execute a single task, then exit immediately so that they don&amp;rsquo;t unfairly hold slots in the SLURM queue. Funnel accesses SLURM by making calls to sbatch.
+The Funnel server process needs to run on the same machine as the SLURM master.
+Configure Funnel to use SLURM by including the following config:
+Scheduler: slurm Backends: SLURM: |#!/bin/bash #SBATCH --job-name {{.</description>
     </item>
     
   </channel>

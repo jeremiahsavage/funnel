@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.20.3" />
+  <meta name="generator" content="Hugo 0.22-DEV" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -123,6 +123,33 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/"
+                   class="sidebar-nav-item "
+                >Open Grid Engine</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/"
+                   class="sidebar-nav-item "
+                >PBS/Torque</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/"
+                   class="sidebar-nav-item "
+                >SLURM</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
                 <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/"
                    class="sidebar-nav-item "
                 >OpenStack</a></li>
@@ -189,10 +216,11 @@ WorkDir: ./funnel-work-dir
 # Hostname of the Funnel server. Mainly, this is used by auto-scalers
 # to configure workers.
 HostName: localhost
-# Logging levels: debug, info, error
-LogLevel: debug
-# Write logs to this path. If empty, logs are written to stderr.
-LogPath: ""
+Logger:
+  # Logging levels: debug, info, error
+  Level: info
+  # Write logs to this path. If empty, logs are written to stderr.
+  OutputFile: &#34;&#34;
 # Limit the size of task executor logs (stdout/err), in bytes.
 MaxExecutorLogSize: 10000 # 10 KB
 # How often to run a scheduler iteration.
@@ -206,7 +234,7 @@ WorkerPingTimeout: 60000000000 # 1 minute
 # How long to wait for a worker to start, before marking the worker dead.
 # In nanoseconds.
 WorkerInitTimeout: 300000000000 # 5 minutes
-# Include a "Cache-Control: no-store" HTTP header in Get/List responses
+# Include a &#34;Cache-Control: no-store&#34; HTTP header in Get/List responses
 # to prevent caching by intermediary services.
 DisableHTTPCache: true
 
@@ -237,17 +265,95 @@ Scheduler: local
 
 # Scheduler backend config
 Backends:
+  HTCondor:
+    Template: |
+      universe = vanilla
+      getenv = True
+      executable = {{.Executable}}
+      arguments = worker --config {{.WorkerConfig}}
+      log = {{.WorkDir}}/condor-event-log
+      error = {{.WorkDir}}/funnel-worker-stderr
+      output = {{.WorkDir}}/funnel-worker-stdout
+      should_transfer_files = YES
+      when_to_transfer_output = ON_EXIT_OR_EVICT
+      {{if ne .Cpus 0 -}}
+      {{printf &#34;request_cpus = %d&#34; .Cpus}}
+      {{- end}}
+      {{if ne .RamGb 0.0 -}}
+      {{printf &#34;request_memory = %.0f GB&#34; .RamGb}}
+      {{- end}}
+      {{if ne .DiskGb 0.0 -}}
+      {{printf &#34;request_disk = %.0f GB&#34; .DiskGb}}
+      {{- end}}
+
+      queue
+
+  PBS:
+    Template: |
+      #!bin/bash
+      #PBS -N {{.WorkerId}}
+      #PBS -o {{.WorkDir}}/funnel-worker-stdout
+      #PBS -e {{.WorkDir}}/funnel-worker-stderr
+      {{if ne .Cpus 0 -}}
+      {{printf &#34;#PBS -l nodes=1:ppn=%d&#34; .Cpus}}
+      {{- end}}
+      {{if ne .RamGb 0.0 -}}
+      {{printf &#34;#PBS -l mem=%.0fgb&#34; .RamGb}}
+      {{- end}}
+      {{if ne .DiskGb 0.0 -}}
+      {{printf &#34;#PBS -l file=%.0fgb&#34; .DiskGb}}
+      {{- end}}
+
+      {{.Executable}} worker --config {{.WorkerConfig}}
+
+  GridEngine:
+    Template: |
+      #!bin/bash
+      #$ -N {{.WorkerId}}
+      #$ -o {{.WorkDir}}/funnel-worker-stdout
+      #$ -e {{.WorkDir}}/funnel-worker-stderr
+      #$ -l nodes=1
+      {{if ne .Cpus 0 -}}
+      {{printf &#34;#$ -pe mpi %d&#34; .Cpus}}
+      {{- end}}
+      {{if ne .RamGb 0.0 -}}
+      {{printf &#34;#$ -l h_vmem=%.0fG&#34; .RamGb}}
+      {{- end}}
+      {{if ne .DiskGb 0.0 -}}
+      {{printf &#34;#$ -l h_fsize=%.0fG&#34; .DiskGb}}
+      {{- end}}
+
+      {{.Executable}} worker --config {{.WorkerConfig}}
+  
+  SLURM:
+    Template: |
+      #!/bin/bash
+      #SBATCH --job-name {{.WorkerId}}
+      #SBATCH --ntasks 1
+      #SBATCH --error {{.WorkDir}}/funnel-worker-stderr
+      #SBATCH --output {{.WorkDir}}/funnel-worker-stdout
+      {{if ne .Cpus 0 -}}
+      {{printf &#34;#SBATCH --cpus-per-task %d&#34; .Cpus}}
+      {{- end}}
+      {{if ne .RamGb 0.0 -}}
+      {{printf &#34;#SBATCH --mem %.0fGB&#34; .RamGb}}
+      {{- end}}
+      {{if ne .DiskGb 0.0 -}}
+      {{printf &#34;#SBATCH --tmp %.0fGB&#34; .DiskGb}}
+      {{- end}}
+
+      {{.Executable}} worker --config {{.WorkerConfig}}
 
   GCE:
     # Path to account credentials file.
     # If possible, this will be automatically discovered.
-    AccountFile: ""
+    AccountFile: &#34;&#34;
     # Google Cloud project ID.
     # If possible, this will be automatically discovered.
-    Project: ""
+    Project: &#34;&#34;
     # Google Cloud zone.
     # If possible, this will be automatically discovered.
-    Zone: ""
+    Zone: &#34;&#34;
     Weights:
       # Prefer workers that start up quickly.
       # Workers that are already online have instant startup time.
@@ -258,7 +364,7 @@ Backends:
 
 Worker:
   # If empty, a worker ID will be automatically generated.
-  ID: ""
+  ID: &#34;&#34;
   # RPC address of the Funnel server
   ServerAddress: localhost:9090
   # Files created during processing will be written in this directory.
@@ -272,30 +378,33 @@ Worker:
   # File storage systems.
   #
   # This is usually set automatically by the scheduler, but you might need this
-  # if you're starting a worker manually.
+  # if you&#39;re starting a worker manually.
   Storage:
     # Local file system.
-    - Local:
-        # Whitelist of local directory paths which Funnel is allowed to access.
-        AllowedDirs:
-          - ./funnel-work-dir/storage
-      #S3:
-      #  Endpoint:
-      #  Key:
-      #  Secret:
+    Local:
+      # Whitelist of local directory paths which Funnel is allowed to access.
+      AllowedDirs:
+        - ./funnel-work-dir/storage
+    #S3:
+    #  - Endpoint:
+    #    Key:
+    #    Secret:
 
-       # Google Cloud Storage
-       #GS:
-        # Path to account credentials file.
-        # Optional. If possible, credentials will be automatically discovered
-        # from the environment.
-       # AccountFile:
-        # Automatically discover credentials from the environment.
-       # FromEnv: true
-  # Logging levels: debug, info, error
-  LogLevel: debug
-  # Write logs to this path. If empty, logs are written to stderr.
-  LogPath: ""
+    # Google Cloud Storage
+    #GS:
+    #   Path to account credentials file.
+    #   Optional. If possible, credentials will be automatically discovered
+    #   from the environment.
+    # - AccountFile:
+    #   Automatically discover credentials from the environment.
+    #   FromEnv: true
+
+  Logger:
+    # Logging levels: debug, info, error
+    Level: info
+    # Write logs to this path. If empty, logs are written to stderr.
+    OutputFile: &#34;&#34;
+
   # Override available resources.
   Resources:
     # CPUs available.
@@ -305,7 +414,8 @@ Worker:
     # RamGb: 0.0
 
     # Disk space available, in GB.
-    DiskGb: 100.0
+    # DiskGb: 0.0
+
   # For low-level tuning.
   # RPC timeout for update/sync call.
   # In nanoseconds.
@@ -318,6 +428,7 @@ Worker:
   # How often to send task log updates to the Funnel server.
   # In nanoseconds.
   LogUpdateRate: 5000000000 # 5 seconds
+
 
 </code></pre>
 
