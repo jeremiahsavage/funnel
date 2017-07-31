@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
     <loc>https://ohsu-comp-bio.github.io/funnel/</loc>
@@ -51,7 +50,7 @@
   </url>
   
   <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/basic-auth/</loc>
   </url>
   
   <url>
@@ -77,11 +76,15 @@
   </url>
   
   <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/google-cloud/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/google-cloud/</loc>
   </url>
   
   <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/htcondor/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/htcondor/</loc>
   </url>
   
   <url>
@@ -89,19 +92,11 @@
   </url>
   
   <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/local/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/grid-engine/</loc>
   </url>
   
   <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/manual/</loc>
-  </url>
-  
-  <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/</loc>
-  </url>
-  
-  <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/openstack/</loc>
   </url>
   
   <url>
@@ -109,7 +104,7 @@
   </url>
   
   <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/pbs-torque/</loc>
   </url>
   
   <url>
@@ -117,7 +112,7 @@
   </url>
   
   <url>
-    <loc>https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/</loc>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/slurm/</loc>
   </url>
   
   <url>

@@ -124,13 +124,15 @@ funnel worker  Options  -c, --config string Config File --hostname string Host n
     </item>
     
     <item>
-      <title>Backends</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/</link>
+      <title>Basic Auth</title>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/guides/basic-auth/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/</guid>
-      <description> Compute Backends Cloud  Google Compute Engine  HPC  HTCondor SLURM Grid Engine PBS/Torque  Storage Backends Files can be downloaded and uploaded from:
- Local/shared filesystem Google Storage S3  </description>
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/guides/basic-auth/</guid>
+      <description> Basic Auth By default, a Funnel server allows open access to its API endpoints, but it can be configured to require basic password authentication. To enable this, include a password in your config file:
+Server: Password: abc123  Make sure to properly protect the configuration file so that it&amp;rsquo;s not readable by everyone:
+$ chmod 600 funnel.config.yml  To use the password, set the FUNNEL_SERVER_PASSWORD environment variable:
+$ export FUNNEL_SERVER_PASSWORD=abc123 $ funnel task list  </description>
     </item>
     
     <item>
@@ -167,20 +169,30 @@ $ funnel --config funnel.config.yaml [server | worker | ... ]  Below is a YAML c
     
     <item>
       <title>Google Cloud</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/google-cloud/</link>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/guides/google-cloud/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/google-cloud/</guid>
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/guides/google-cloud/</guid>
       <description>Google Cloud Compute This guide covers deploying a Funnel server and workers to Google Cloud Compute (GCE). You&amp;rsquo;ll need to create a Google Cloud project, and install the gcloud SDK. Optionally, these commands can be done through the GCE web dashboard.
 Create a Funnel VM Image A Funnel image provides the basic dependencies and configuration needed by both Funnel servers and workers, and allows instances to start more quickly and reliably.</description>
     </item>
     
     <item>
-      <title>HTCondor</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/htcondor/</link>
+      <title>Guides</title>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/guides/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/htcondor/</guid>
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/guides/</guid>
+      <description> Compute Backends Cloud  Google Compute Engine  HPC  HTCondor SLURM Grid Engine PBS/Torque  Storage Backends Files can be downloaded and uploaded from:
+ Local/shared filesystem Google Storage S3  </description>
+    </item>
+    
+    <item>
+      <title>HTCondor</title>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/guides/htcondor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/guides/htcondor/</guid>
       <description>HTCondor Funnel can be configured to start workers via HTCondor.
 Workers will start, execute a single task, then exit immediately so that they don&amp;rsquo;t unfairly hold slots in the HTCondor queue. Funnel accesses HTCondor by making calls to condor_submit.
 The Funnel server process needs to run on the same machine as the HTCondor master.
@@ -189,29 +201,11 @@ Scheduler: htcondor Backends: HTCondor: |universe = vanilla getenv = True execut
     </item>
     
     <item>
-      <title>Local</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/local/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/local/</guid>
-      <description> Local Backend </description>
-    </item>
-    
-    <item>
-      <title>Manual</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/manual/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/manual/</guid>
-      <description> Manual Backend </description>
-    </item>
-    
-    <item>
       <title>Open Grid Engine</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/</link>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/guides/grid-engine/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/</guid>
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/guides/grid-engine/</guid>
       <description>Open Grid Engine (SGE) Funnel can be configured to start workers via Open Grid Engine.
 Workers will start, execute a single task, then exit immediately so that they don&amp;rsquo;t unfairly hold slots in the SGE queue. Funnel accesses SGE by making calls to qsub.
 The Funnel server process needs to run on the same machine as the SGE master.
@@ -220,19 +214,19 @@ Configure Funnel to use SGE by including the following config:</description>
     
     <item>
       <title>OpenStack</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/</link>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/guides/openstack/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/</guid>
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/guides/openstack/</guid>
       <description> OpenStack Backend </description>
     </item>
     
     <item>
       <title>PBS/Torque</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/</link>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/guides/pbs-torque/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/</guid>
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/guides/pbs-torque/</guid>
       <description>PBS/Torque Funnel can be configured to start workers via PBS/Torque.
 Workers will start, execute a single task, then exit immediately so that they don&amp;rsquo;t unfairly hold slots in the PBS queue. Funnel accesses PBS by making calls to qsub.
 The Funnel server process needs to run on the same machine as the PBS master.
@@ -252,10 +246,10 @@ Scheduler: pbs Backends: PBS: |#!/bin/bash #PBS -N {{.</description>
     
     <item>
       <title>SLURM</title>
-      <link>https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/</link>
+      <link>https://ohsu-comp-bio.github.io/funnel/docs/guides/slurm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/</guid>
+      <guid>https://ohsu-comp-bio.github.io/funnel/docs/guides/slurm/</guid>
       <description>SLURM Funnel can be configured to start workers via SLURM.
 Workers will start, execute a single task, then exit immediately so that they don&amp;rsquo;t unfairly hold slots in the SLURM queue. Funnel accesses SLURM by making calls to sbatch.
 The Funnel server process needs to run on the same machine as the SLURM master.

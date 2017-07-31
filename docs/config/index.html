@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.22-DEV" />
+  <meta name="generator" content="Hugo 0.20.3" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -39,6 +39,7 @@
           <li><a href="https://ohsu-comp-bio.github.io/funnel/install/">Install</a></li>
           <li><a href="https://ohsu-comp-bio.github.io/funnel/docs/">Docs</a></li>
           <li><a href="https://github.com/ohsu-comp-bio/funnel">GitHub</a></li>
+          <li><a href="https://gitter.im/ohsu-comp-bio/funnel">Chat</a></li>
         </ul>
       <div class="global-header-ohsucb">
         <a href="https://www.ohsu.edu/xd/education/schools/school-of-medicine/departments/computational-biology/"><h2>OHSU Comp. Bio.</h2></a>
@@ -79,33 +80,15 @@
           
         
         <li><a
-          href="https://ohsu-comp-bio.github.io/funnel/docs/backends/"
+          href="https://ohsu-comp-bio.github.io/funnel/docs/guides/"
           class="sidebar-nav-item "
-          >Backends</a></li>
+          >Guides</a></li>
           
           
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
-                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/local/"
-                   class="sidebar-nav-item "
-                >Local</a></li>
-            </ul>
-          </li>
-          
-          <li>
-            <ul class="sidebar-nav sidebar-nav-nested">
-              <li>
-                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/manual/"
-                   class="sidebar-nav-item "
-                >Manual</a></li>
-            </ul>
-          </li>
-          
-          <li>
-            <ul class="sidebar-nav sidebar-nav-nested">
-              <li>
-                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/google-cloud/"
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/google-cloud/"
                    class="sidebar-nav-item "
                 >Google Cloud</a></li>
             </ul>
@@ -114,7 +97,7 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
-                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/htcondor/"
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/htcondor/"
                    class="sidebar-nav-item "
                 >HTCondor</a></li>
             </ul>
@@ -123,7 +106,7 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
-                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/grid-engine/"
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/grid-engine/"
                    class="sidebar-nav-item "
                 >Open Grid Engine</a></li>
             </ul>
@@ -132,7 +115,7 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
-                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/pbs-torque/"
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/pbs-torque/"
                    class="sidebar-nav-item "
                 >PBS/Torque</a></li>
             </ul>
@@ -141,7 +124,7 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
-                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/slurm/"
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/slurm/"
                    class="sidebar-nav-item "
                 >SLURM</a></li>
             </ul>
@@ -150,9 +133,18 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
-                <a href="https://ohsu-comp-bio.github.io/funnel/docs/backends/openstack/"
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/openstack/"
                    class="sidebar-nav-item "
                 >OpenStack</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/basic-auth/"
+                   class="sidebar-nav-item "
+                >Basic Auth</a></li>
             </ul>
           </li>
           
@@ -174,18 +166,6 @@
           href="https://godoc.org/github.com/ohsu-comp-bio/funnel"
           class="sidebar-nav-item "
           >Reference</a></li>
-          
-        
-        <li><a
-          href="https://github.com/ohsu-comp-bio/funnel"
-          class="sidebar-nav-item "
-          >GitHub</a></li>
-          
-        
-        <li><a
-          href="https://gitter.im/ohsu-comp-bio/funnel"
-          class="sidebar-nav-item "
-          >Chat</a></li>
           
         
       
@@ -216,6 +196,11 @@ WorkDir: ./funnel-work-dir
 # Hostname of the Funnel server. Mainly, this is used by auto-scalers
 # to configure workers.
 HostName: localhost
+Server:
+  # Require basic authentication for the server APIs using a password.
+  # If used, make sure to properly restrict access to the config file
+  # (e.g. chmod 600 funnel.config.yml)
+  #Password: abc123
 Logger:
   # Logging levels: debug, info, error
   Level: info
@@ -374,6 +359,9 @@ Worker:
   Timeout: -1
   # Maximum task log (stdout/err) size, in bytes.
   LogTailSize: 10000 # 10 KB
+
+  # Password for basic auth. with the server APIs.
+  #ServerPassword: abc123
 
   # File storage systems.
   #
