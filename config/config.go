@@ -196,6 +196,8 @@ type Scheduler struct {
 	Node Node
 	// Logger configuration
 	Logger logger.Config
+	// Disable the scheduler service.
+	Disabled bool
 }
 
 // Node contains the configuration for a node. Nodes track available resources
