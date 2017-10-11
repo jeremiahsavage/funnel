@@ -114,6 +114,8 @@ func DefaultConfig() Config {
 	c.Server.Database = "boltdb"
 	c.Server.Databases.BoltDB.Path = path.Join(workDir, "funnel.db")
 	c.Server.Databases.DynamoDB.TableBasename = "funnel"
+	c.Server.Databases.Elastic.IndexPrefix = "funnel"
+	c.Server.Databases.Elastic.URL = "http://localhost:9200"
 
 	c.Worker.TaskReader = "rpc"
 	c.Worker.TaskReaders.RPC.ServerAddress = server.RPCAddress()
@@ -155,6 +157,7 @@ type Server struct {
 			Path string
 		}
 		DynamoDB DynamoDB
+		Elastic  Elastic
 	}
 	DisableHTTPCache   bool
 	MaxExecutorLogSize int
@@ -254,6 +257,12 @@ type Worker struct {
 		}
 		DynamoDB DynamoDB
 	}
+}
+
+// Elastic configures access to an Elasticsearch database.
+type Elastic struct {
+	IndexPrefix string
+	URL         string
 }
 
 // DynamoDB describes the configuration for Amazon DynamoDB backed processes

@@ -17,7 +17,7 @@ type Database interface {
 	ListNodes(context.Context, *pbs.ListNodesRequest) (*pbs.ListNodesResponse, error)
 	PutNode(context.Context, *pbs.Node) (*pbs.PutNodeResponse, error)
 	DeleteNode(context.Context, *pbs.Node) error
-	Write(ev *events.Event) error
+	Write(context.Context, *events.Event) error
 }
 
 // NewScheduler returns a new Scheduler instance.
@@ -99,6 +99,8 @@ func (s *Scheduler) Schedule(ctx context.Context) error {
 	}
 
 	for _, task := range s.db.ReadQueue(s.conf.ScheduleChunk) {
+		log.Debug("Scheduling", task)
+
 		offer := s.backend.GetOffer(task)
 		if offer != nil {
 			log.Info("Assigning task to node",
@@ -117,7 +119,7 @@ func (s *Scheduler) Schedule(ctx context.Context) error {
 				continue
 			}
 
-			err = s.db.Write(events.NewState(task.Id, 0, tes.State_INITIALIZING))
+			err = s.db.Write(ctx, events.NewState(task.Id, 0, tes.State_INITIALIZING))
 			if err != nil {
 				log.Error("Error marking task as initializing", err)
 			}
