@@ -100,6 +100,7 @@ func NewFunnel() *Funnel {
 		Return(nil, nil)
 
 	fun.Scheduler = scheduler.NewScheduler(fun.SDB, backend, conf.Scheduler)
+	fun.Srv.Scheduler = fun.Scheduler
 	fun.StartServer()
 
 	return fun

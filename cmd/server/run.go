@@ -9,6 +9,7 @@ import (
 	"github.com/ohsu-comp-bio/funnel/compute/htcondor"
 	"github.com/ohsu-comp-bio/funnel/compute/local"
 	"github.com/ohsu-comp-bio/funnel/compute/manual"
+	"github.com/ohsu-comp-bio/funnel/compute/noop"
 	"github.com/ohsu-comp-bio/funnel/compute/openstack"
 	"github.com/ohsu-comp-bio/funnel/compute/pbs"
 	"github.com/ohsu-comp-bio/funnel/compute/scheduler"
@@ -22,14 +23,30 @@ import (
 	"strings"
 )
 
-// Run runs a default Funnel server.
-// This opens a database, and starts an API server, scheduler and task logger.
-// This blocks indefinitely.
+// Run runs the "server run" command.
 func Run(ctx context.Context, conf config.Config) error {
 	logger.Configure(conf.Server.Logger)
 
+	s, err := NewServer(conf)
+	if err != nil {
+		return err
+	}
+	return s.Run(ctx)
+}
+
+// Server is a Funnel server + scheduler.
+type Server struct {
+	*server.Server
+	*scheduler.Scheduler
+	DB  server.Database
+	SDB scheduler.Database
+}
+
+// NewServer returns a new Funnel server + scheduler based on the given config.
+func NewServer(conf config.Config) (*Server, error) {
 	var backend compute.Backend
 	var db server.Database
+	var sdb scheduler.Database
 	var sched *scheduler.Scheduler
 	var err error
 
@@ -44,20 +61,19 @@ func Run(ctx context.Context, conf config.Config) error {
 			err = eserr
 		} else {
 			db = es
-			es.Init(ctx)
+			es.Init(context.Background())
 		}
 	}
 	if err != nil {
-		return fmt.Errorf("error occurred while connecting to or creating the database: %v", err)
+		return nil, fmt.Errorf("error occurred while connecting to or creating the database: %v", err)
 	}
-
-	srv := server.DefaultServer(db, conf.Server)
 
 	switch strings.ToLower(conf.Backend) {
 	case "gce", "manual", "openstack":
-		sdb, ok := db.(scheduler.Database)
+		var ok bool
+		sdb, ok = db.(scheduler.Database)
 		if !ok {
-			return fmt.Errorf("database doesn't satisfy the scheduler interface")
+			return nil, fmt.Errorf("database doesn't satisfy the scheduler interface")
 		}
 
 		backend = scheduler.NewComputeBackend(sdb)
@@ -72,7 +88,7 @@ func Run(ctx context.Context, conf config.Config) error {
 			sbackend, err = openstack.NewBackend(conf)
 		}
 		if err != nil {
-			return fmt.Errorf("error occurred while setting up backend: %v", err)
+			return nil, fmt.Errorf("error occurred while setting up backend: %v", err)
 		}
 
 		sched = scheduler.NewScheduler(sdb, sbackend, conf.Scheduler)
@@ -82,28 +98,37 @@ func Run(ctx context.Context, conf config.Config) error {
 		backend = htcondor.NewBackend(conf)
 	case "local":
 		backend = local.NewBackend(conf)
+	case "noop":
+		backend = noop.NewBackend(conf)
 	case "pbs":
 		backend = pbs.NewBackend(conf)
 	case "slurm":
 		backend = slurm.NewBackend(conf)
 	default:
-		return fmt.Errorf("unknown backend")
+		return nil, fmt.Errorf("unknown backend: '%s'", conf.Backend)
 	}
 
 	db.WithComputeBackend(backend)
+	srv := server.DefaultServer(db, conf.Server)
 
-	// Block
+	return &Server{srv, sched, db, sdb}, nil
+}
+
+// Run runs a default Funnel server.
+// This opens a database, and starts an API server, scheduler and task logger.
+// This blocks indefinitely.
+func (s *Server) Run(ctx context.Context) error {
 
 	// Start server
 	errch := make(chan error)
 	go func() {
-		errch <- srv.Serve(ctx)
+		errch <- s.Server.Serve(ctx)
 	}()
 
 	// Start Scheduler
-	if sched != nil {
+	if s.Scheduler != nil {
 		go func() {
-			errch <- sched.Run(ctx)
+			errch <- s.Scheduler.Run(ctx)
 		}()
 	}
 

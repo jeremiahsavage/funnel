@@ -2,7 +2,7 @@ package e2e
 
 import (
 	"context"
-	"github.com/ohsu-comp-bio/funnel/compute/scheduler"
+	"github.com/ohsu-comp-bio/funnel/config"
 	pbs "github.com/ohsu-comp-bio/funnel/proto/scheduler"
 	"testing"
 	"time"
@@ -11,10 +11,8 @@ import (
 // Test the simple case of a node that is alive,
 // then doesn't ping in time, and it marked dead
 func TestNodeDead(t *testing.T) {
-	conf := DefaultConfig()
-	conf.Scheduler.NodePingTimeout = time.Millisecond
+	conf := nodeTestConfig(DefaultConfig())
 	srv := NewFunnel(conf)
-	srv.Scheduler = scheduler.NewScheduler(srv.SDB, nil, conf.Scheduler)
 
 	srv.SDB.PutNode(context.Background(), &pbs.Node{
 		Id:    "test-node",
@@ -33,10 +31,8 @@ func TestNodeDead(t *testing.T) {
 // Test what happens when a node never starts.
 // It should be marked as dead.
 func TestNodeInitFail(t *testing.T) {
-	conf := DefaultConfig()
-	conf.Scheduler.NodeInitTimeout = time.Millisecond
+	conf := nodeTestConfig(DefaultConfig())
 	srv := NewFunnel(conf)
-	srv.Scheduler = scheduler.NewScheduler(srv.SDB, nil, conf.Scheduler)
 	srv.StartServer()
 
 	srv.SDB.PutNode(context.Background(), &pbs.Node{
@@ -56,11 +52,8 @@ func TestNodeInitFail(t *testing.T) {
 // Test that a dead node is deleted from the SDB after
 // a configurable duration.
 func TestNodeDeadTimeout(t *testing.T) {
-	conf := DefaultConfig()
-	conf.Scheduler.NodeInitTimeout = time.Millisecond
-	conf.Scheduler.NodeDeadTimeout = time.Millisecond
+	conf := nodeTestConfig(DefaultConfig())
 	srv := NewFunnel(conf)
-	srv.Scheduler = scheduler.NewScheduler(srv.SDB, nil, conf.Scheduler)
 
 	srv.SDB.PutNode(context.Background(), &pbs.Node{
 		Id:    "test-node",
@@ -75,4 +68,12 @@ func TestNodeDeadTimeout(t *testing.T) {
 	if len(nodes) > 0 {
 		t.Error("expected node to be deleted")
 	}
+}
+
+func nodeTestConfig(conf config.Config) config.Config {
+	conf.Backend = "manual"
+	conf.Scheduler.NodePingTimeout = time.Millisecond
+	conf.Scheduler.NodeInitTimeout = time.Millisecond
+	conf.Scheduler.NodeDeadTimeout = time.Millisecond
+	return conf
 }
