@@ -58,6 +58,8 @@ func NewDefaultWorker(conf config.Worker, taskID string, log *logger.Logger) (wo
 			writer, err = events.NewRPCWriter(conf)
 		case "elastic":
 			writer, err = elastic.NewElastic(conf.EventWriters.Elastic)
+		case "kafka":
+			writer, err = events.NewKafkaWriter(conf.EventWriters.Kafka)
 		default:
 			err = fmt.Errorf("unknown EventWriter")
 		}

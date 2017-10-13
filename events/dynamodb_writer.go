@@ -358,3 +358,7 @@ func (ew *DynamoDBEventWriter) Write(e *Event) error {
 	_, err = ew.client.UpdateItem(item)
 	return err
 }
+
+func (ew *DynamoDBEventWriter) Close() error {
+	return nil
+}

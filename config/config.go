@@ -131,6 +131,8 @@ func DefaultConfig() Config {
 	c.Worker.EventWriters.DynamoDB.TableBasename = "funnel"
 	c.Worker.EventWriters.Elastic = c.Server.Databases.Elastic
 
+	c.Worker.EventWriters.Kafka.Topic = "funnel"
+
 	htcondorTemplate, _ := Asset("config/htcondor-template.txt")
 	slurmTemplate, _ := Asset("config/slurm-template.txt")
 	pbsTemplate, _ := Asset("config/pbs-template.txt")
@@ -263,6 +265,7 @@ type Worker struct {
 		}
 		DynamoDB DynamoDB
 		Elastic  Elastic
+		Kafka    Kafka
 	}
 }
 
@@ -270,6 +273,12 @@ type Worker struct {
 type Elastic struct {
 	IndexPrefix string
 	URL         string
+}
+
+// Kafka configure access to a Kafka topic for task event reading/writing.
+type Kafka struct {
+	Servers []string
+	Topic   string
 }
 
 // AWSCredentials describes the configuration for creating AWS Session instances
