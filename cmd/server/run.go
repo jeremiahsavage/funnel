@@ -38,8 +38,9 @@ func Run(ctx context.Context, conf config.Config) error {
 type Server struct {
 	*server.Server
 	*scheduler.Scheduler
-	DB  server.Database
-	SDB scheduler.Database
+	DB       server.Database
+	SDB      scheduler.Database
+	SBackend scheduler.Backend
 }
 
 // NewServer returns a new Funnel server + scheduler based on the given config.
@@ -48,6 +49,7 @@ func NewServer(conf config.Config) (*Server, error) {
 	var db server.Database
 	var sdb scheduler.Database
 	var sched *scheduler.Scheduler
+	var sbackend scheduler.Backend
 	var err error
 
 	switch strings.ToLower(conf.Server.Database) {
@@ -69,7 +71,7 @@ func NewServer(conf config.Config) (*Server, error) {
 	}
 
 	switch strings.ToLower(conf.Backend) {
-	case "gce", "manual", "openstack":
+	case "gce", "manual", "openstack", "gce-mock":
 		var ok bool
 		sdb, ok = db.(scheduler.Database)
 		if !ok {
@@ -78,10 +80,11 @@ func NewServer(conf config.Config) (*Server, error) {
 
 		backend = scheduler.NewComputeBackend(sdb)
 
-		var sbackend scheduler.Backend
 		switch strings.ToLower(conf.Backend) {
 		case "gce":
 			sbackend, err = gce.NewBackend(conf)
+		case "gce-mock":
+			sbackend, err = gce.NewMockBackend(conf)
 		case "manual":
 			sbackend, err = manual.NewBackend(conf)
 		case "openstack":
@@ -111,7 +114,7 @@ func NewServer(conf config.Config) (*Server, error) {
 	db.WithComputeBackend(backend)
 	srv := server.DefaultServer(db, conf.Server)
 
-	return &Server{srv, sched, db, sdb}, nil
+	return &Server{srv, sched, db, sdb, sbackend}, nil
 }
 
 // Run runs a default Funnel server.
