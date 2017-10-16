@@ -54,16 +54,21 @@ func NewServer(conf config.Config) (*Server, error) {
 
 	switch strings.ToLower(conf.Server.Database) {
 	case "boltdb":
-		db, err = boltdb.NewBoltDB(conf)
+		bdb, berr := boltdb.NewBoltDB(conf)
+		err = berr
+		db = bdb
+		sdb = bdb
 	case "dynamodb":
-		db, err = dynamodb.NewDynamoDB(conf.Server.Databases.DynamoDB)
+		ddb, derr := dynamodb.NewDynamoDB(conf.Server.Databases.DynamoDB)
+		err = derr
+		db = ddb
 	case "elastic":
 		es, eserr := elastic.NewTES(conf.Server.Databases.Elastic)
-		if eserr != nil {
-			err = eserr
-		} else {
-			db = es
-			es.Init(context.Background())
+		err = eserr
+		db = es
+		sdb = es
+		if err == nil {
+			err = es.Init(context.Background())
 		}
 	}
 	if err != nil {
@@ -72,9 +77,7 @@ func NewServer(conf config.Config) (*Server, error) {
 
 	switch strings.ToLower(conf.Backend) {
 	case "gce", "manual", "openstack", "gce-mock":
-		var ok bool
-		sdb, ok = db.(scheduler.Database)
-		if !ok {
+		if sdb == nil {
 			return nil, fmt.Errorf("database doesn't satisfy the scheduler interface")
 		}
 
