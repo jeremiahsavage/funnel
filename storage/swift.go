@@ -12,6 +12,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"syscall"
 )
 
 const swiftScheme = "swift"
@@ -116,6 +117,7 @@ func (sw *SwiftBackend) get(src io.Reader, hostPath string) error {
 // Put copies an object (file) from the host path to storage.
 func (sw *SwiftBackend) Put(ctx context.Context, rawurl string, hostPath string, class tes.FileType) ([]*tes.OutputFileLog, error) {
 
+	syscall.Sync()
 	var out []*tes.OutputFileLog
 
 	switch class {
