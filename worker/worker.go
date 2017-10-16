@@ -214,8 +214,6 @@ func (r *DefaultWorker) Run(pctx context.Context) {
 		}
 	}
 
-	time.Sleep(time.Minute * 5)
-
 	// Upload outputs
 	var outputs []*tes.OutputFileLog
 	for _, output := range r.Mapper.Outputs {
