@@ -214,15 +214,30 @@ func (r *DefaultWorker) Run(pctx context.Context) {
 		}
 	}
 
+	time.Sleep(time.Minute * 5)
+
 	// Upload outputs
 	var outputs []*tes.OutputFileLog
 	for _, output := range r.Mapper.Outputs {
-		if run.ok() {
-			r.fixLinks(output.Path)
-			var out []*tes.OutputFileLog
-			out, run.syserr = r.Store.Put(ctx, output.Url, output.Path, output.Type)
-			outputs = append(outputs, out...)
+		r.fixLinks(output.Path)
+		maxAttempts := 3
+		var out []*tes.OutputFileLog
+		var err error
+
+		for i := 0; i < maxAttempts; i++ {
+			out, err = r.Store.Put(ctx, output.Url, output.Path, output.Type)
+			time.Sleep(time.Second * 30)
+			if err == nil {
+				break
+			} else {
+				r.Event.Error("upload error", "error", err)
+			}
 		}
+		if err != nil {
+			run.syserr = err
+			break
+		}
+		outputs = append(outputs, out...)
 	}
 
 	if run.ok() {
