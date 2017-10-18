@@ -359,6 +359,7 @@ func (ew *DynamoDBEventWriter) Write(e *Event) error {
 	return err
 }
 
+// Close closes the writer.
 func (ew *DynamoDBEventWriter) Close() error {
 	return nil
 }
