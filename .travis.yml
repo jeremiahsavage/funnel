@@ -22,5 +22,6 @@ script:
   - make test
   - make test-backends
   - make test-elasticsearch
+  - make test-kafka
 notifications:
   email: false
