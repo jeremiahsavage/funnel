@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.20.3" />
+  <meta name="generator" content="Hugo 0.21-DEV" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -88,9 +88,18 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/aws/"
+                   class="sidebar-nav-item "
+                >AWS Deployment</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
                 <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/google-cloud/"
                    class="sidebar-nav-item "
-                >Google Cloud</a></li>
+                >Google Cloud Deployment</a></li>
             </ul>
           </li>
           
@@ -340,13 +349,18 @@
 </tr>
 
 <tr>
+<td><code>events</code></td>
+<td>Internal, Funnel-specific protobuf/gRPC/Go files for task state and log updates.</td>
+</tr>
+
+<tr>
 <td><code>proto/tes</code></td>
 <td>Generated GA4GH protobuf/gRPC files from <a href="https://github.com/ga4gh/task-execution-schemas">task-execution-schemas</a>.</td>
 </tr>
 
 <tr>
-<td><code>proto/funnel</code></td>
-<td>The internal, Funnel-specific protobuf/gRPC files.</td>
+<td><code>proto/scheduler</code></td>
+<td>Internal, Funnel-specific scheduler protobuf/gRPC files.</td>
 </tr>
 
 <tr>
@@ -355,8 +369,13 @@
 </tr>
 
 <tr>
-<td><code>scheduler</code></td>
-<td>Scheduler logic and backends.</td>
+<td><code>compute</code></td>
+<td>Compute backends.</td>
+</tr>
+
+<tr>
+<td><code>compute/scheduler</code></td>
+<td>Basic scheduling/scaling for compute backends.</td>
 </tr>
 
 <tr>
@@ -384,7 +403,7 @@
 <h2 id="go-tests">Go Tests</h2>
 
 <p>Run all tests: <code>make go-test</code><br />
-Run the scheduler tests: <code>go test ./scheduler/...</code><br />
+Run the worker tests: <code>go test ./worker/...</code><br />
 Run the worker tests with &ldquo;Cancel&rdquo; in the name: <code>go test ./worker -run Cancel</code></p>
 
 <p>You get the idea. See the <code>go test</code> docs for more.</p>

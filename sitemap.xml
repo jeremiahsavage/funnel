@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://ohsu-comp-bio.github.io/funnel/</loc>
@@ -7,6 +8,10 @@
   
   <url>
     <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_dashboard/</loc>
   </url>
   
   <url>
@@ -18,7 +23,23 @@
   </url>
   
   <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_gce_run/</loc>
+  </url>
+  
+  <url>
     <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_gce_start/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_node/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_node_run/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_run/</loc>
   </url>
   
   <url>
@@ -46,7 +67,15 @@
   </url>
   
   <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_wait/</loc>
+  </url>
+  
+  <url>
     <loc>https://ohsu-comp-bio.github.io/funnel/docs/cmd/funnel_worker/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ohsu-comp-bio.github.io/funnel/docs/guides/aws/</loc>
   </url>
   
   <url>

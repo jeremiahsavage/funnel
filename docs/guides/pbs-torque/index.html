@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.20.3" />
+  <meta name="generator" content="Hugo 0.21-DEV" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -88,9 +88,18 @@
           <li>
             <ul class="sidebar-nav sidebar-nav-nested">
               <li>
+                <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/aws/"
+                   class="sidebar-nav-item "
+                >AWS Deployment</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <ul class="sidebar-nav sidebar-nav-nested">
+              <li>
                 <a href="https://ohsu-comp-bio.github.io/funnel/docs/guides/google-cloud/"
                    class="sidebar-nav-item "
-                >Google Cloud</a></li>
+                >Google Cloud Deployment</a></li>
             </ul>
           </li>
           
@@ -177,21 +186,18 @@
 
 <h1 id="pbs-torque">PBS/Torque</h1>
 
-<p>Funnel can be configured to start workers via <a href="http://www.adaptivecomputing.com/products/open-source/torque/">PBS/Torque</a>.</p>
-
-<p>Workers will start, execute a single task, then exit immediately so that they don&rsquo;t
-unfairly hold slots in the PBS queue. Funnel accesses PBS by making calls
+<p>Funnel can be configured to submit workers to <a href="http://www.adaptivecomputing.com/products/open-source/torque/">PBS/Torque</a> by making calls
 to <code>qsub</code>.</p>
 
-<p>The Funnel server process needs to run on the same machine as the PBS master.<br />
+<p>The Funnel server process needs to run on the same machine as the PBS master.
 Configure Funnel to use PBS by including the following config:</p>
 
-<pre><code class="language-YAML">Scheduler: pbs
+<pre><code class="language-YAML">Backend: pbs
 Backends:
   PBS: |<p style="margin-left: 3em">#!/bin/bash
-#PBS -N {{.WorkerId}}
-#PBS -o {{.WorkDir}}/funnel-worker-stdout
-#PBS -e {{.WorkDir}}/funnel-worker-stderr
+#PBS -N {{.TaskId}}
+#PBS -o {{.WorkDir}}/funnel-stdout
+#PBS -e {{.WorkDir}}/funnel-stderr
 {{if ne .Cpus 0 -}}
 {{printf &#34;#PBS -l nodes=1:ppn=%d&#34; .Cpus}}
 {{- end}}
@@ -202,7 +208,7 @@ Backends:
 {{printf &#34;#PBS -l file=%.0fgb&#34; .DiskGb}}
 {{- end}}
 
-{{.Executable}} worker --config {{.WorkerConfig}}
+{{.Executable}} worker run --config {{.Config}} --task-id {{.TaskId}}
 </p>
 
 </code></pre>
@@ -219,8 +225,8 @@ Backends:
 
 <tbody>
 <tr>
-<td align="left">WorkerId</td>
-<td align="left">funnel worker id</td>
+<td align="left">TaskId</td>
+<td align="left">funnel task id</td>
 </tr>
 
 <tr>
@@ -229,7 +235,7 @@ Backends:
 </tr>
 
 <tr>
-<td align="left">WorkerConfig</td>
+<td align="left">Config</td>
 <td align="left">path to the funnel worker config file</td>
 </tr>
 
@@ -266,11 +272,6 @@ Backends:
 </table>
 
 <p>See <a href="https://golang.org/pkg/text/template">https://golang.org/pkg/text/template</a> for information on creating templates.</p>
-
-<p>To start Funnel with a config file:</p>
-
-<pre><code class="language-shell">$ funnel server --config ./your-config.yaml
-</code></pre>
 
   </div>
 
